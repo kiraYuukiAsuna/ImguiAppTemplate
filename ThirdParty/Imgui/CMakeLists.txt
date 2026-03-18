@@ -22,10 +22,10 @@ if (WIN32)
     )
 elseif (UNIX AND NOT APPLE)
     target_include_directories(Imgui PRIVATE
-        ../vulkan/Linux
+        ../Vulkan/Linux
     )
 elseif (APPLE)
     target_include_directories(Imgui PRIVATE
-        ../vulkan/Mac
+        ../Vulkan/Mac
     )
 endif()
