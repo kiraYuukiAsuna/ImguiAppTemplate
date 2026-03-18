@@ -17,18 +17,7 @@ set(PROJECT_SOURCES
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE
-    ThirdParty/glfw/include
-    ThirdParty/glm
-    ThirdParty/Imgui/Imgui
-    ThirdParty/Imgui/ImguiNodeEditor
-    ThirdParty/Imgui/ImGuizmo
-    ThirdParty/Imgui/ImPlot
-    ThirdParty/Imgui/ImPlot3D
-    ThirdParty/Imgui/RenderBackend
-    ThirdParty/VulkanMemoryAllocator
-)
-
-target_include_directories(${PROJECT_NAME} PRIVATE
+    ThirdParty
     ThirdParty/Imgui/Imgui
     ThirdParty/Imgui/ImguiNodeEditor
     ThirdParty/Imgui/ImGuizmo
