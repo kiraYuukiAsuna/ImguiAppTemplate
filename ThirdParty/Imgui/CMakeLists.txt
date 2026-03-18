@@ -14,6 +14,18 @@ target_include_directories(Imgui PRIVATE
     ImPlot
     ImPlot3D
     RenderBackend
-    ../vulkan
     ../glfw/include
 )
+if (WIN32)
+    target_include_directories(Imgui PRIVATE
+        ../Vulkan/Win
+    )
+elseif (UNIX AND NOT APPLE)
+    target_include_directories(Imgui PRIVATE
+        ../vulkan/Linux
+    )
+elseif (APPLE)
+    target_include_directories(Imgui PRIVATE
+        ../vulkan/Mac
+    )
+endif()

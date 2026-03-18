@@ -25,21 +25,59 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ThirdParty/Imgui/ImPlot
     ThirdParty/Imgui/ImPlot3D
     ThirdParty/Imgui/RenderBackend
-    ThirdParty/vulkan/vk_video
-    ThirdParty/vulkan
     ThirdParty/VulkanMemoryAllocator
 )
 
-target_link_directories(${PROJECT_NAME} PRIVATE
-    ThirdParty/vulkan/Lib
+target_include_directories(${PROJECT_NAME} PRIVATE
+    ThirdParty/Imgui/Imgui
+    ThirdParty/Imgui/ImguiNodeEditor
+    ThirdParty/Imgui/ImGuizmo
+    ThirdParty/Imgui/ImPlot
+    ThirdParty/Imgui/ImPlot3D
+    ThirdParty/Imgui/RenderBackend
+    ThirdParty/glfw/include
+    ThirdParty/glm
+    ThirdParty/VulkanMemoryAllocator
 )
-
 target_link_libraries(${PROJECT_NAME} PRIVATE
+    Imgui
     glfw
     glm
-    Imgui
-    vulkan-1
 )
+if (WIN32)
+    target_include_directories(${PROJECT_NAME} PRIVATE
+        ThirdParty/Vulkan/Win/vk_video
+        ThirdParty/Vulkan/Win
+    )
+    target_link_directories(${PROJECT_NAME} PRIVATE
+        ThirdParty/Vulkan/Win/Lib
+    )
+    target_link_libraries(${PROJECT_NAME} PRIVATE
+        vulkan-1
+    )
+elseif (UNIX AND NOT APPLE)
+    target_include_directories(${PROJECT_NAME} PRIVATE
+        ThirdParty/Vulkan/Linux/vk_video
+        ThirdParty/Vulkan/Linux
+    )
+    target_link_directories(${PROJECT_NAME} PRIVATE
+        ThirdParty/Vulkan/Linux/Lib
+    )
+    target_link_libraries(${PROJECT_NAME} PRIVATE
+        libvulkan.so
+    )
+elseif (APPLE)
+    target_include_directories(${PROJECT_NAME} PRIVATE
+        ThirdParty/Vulkan/Mac/vk_video
+        ThirdParty/Vulkan/Mac
+    )
+    target_link_directories(${PROJECT_NAME} PRIVATE
+        ThirdParty/Vulkan/Mac/Lib
+    )
+    target_link_libraries(${PROJECT_NAME} PRIVATE
+        libvulkan.dylib
+    )
+endif()
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
